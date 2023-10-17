@@ -33,9 +33,9 @@ class BaseUserClass(models.Model):
     Base class for Rider and Customer details
     """
     STATUS_CHOICES = (
-        ('available','available'),
-        ('unavailable','unavailable'),
-        ('on_ride','on_ride')
+        ('available', 'available'),
+        ('unavailable', 'unavailable'),
+        ('on_ride', 'on_ride')
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(RiderUser, on_delete=models.CASCADE)
