@@ -15,16 +15,13 @@ services:
 
     environment:
       - DB_USER=rider_user
-      - DB_NAME=rider
+      - DB_NAME=riderapp
       - DB_PASSWORD=password
       - DB_HOST=db
     depends_on:
       - db
-      - redis
-  # To connect to db with test data db_name = tribaja, db_user=tribaja_user, db_password = password
+  # To connect to db with test data db_name = riderapp, db_user=rider_user, db_password = password
 
-  redis:
-    image: "redis:alpine"
 
   db:
     build:

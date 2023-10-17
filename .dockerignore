@@ -1,0 +1,50 @@
+# Version Control
+.git/
+.gitignore
+.hg/
+.svn/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Logs and databases
+*.log
+db.sqlite3
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Sensitive files
+.env
+*.pem
+
+# Tests and docs if not needed in the production environment
+tests/
+docs/
+
+# If you're compiling static files, intermediate build assets might not be necessary
+# Example for Node.js frontend assets:
+node_modules/
+build/
+dist/
+
+# Other unnecessary files for production
+*.md
+Dockerfile
+.dockerignore
+README.md
+CHANGELOG.md
