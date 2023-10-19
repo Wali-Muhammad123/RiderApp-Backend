@@ -3,7 +3,7 @@ from django.contrib.gis.db.models.functions import Distance
 from users.models import Customer
 
 
-def find_riders(rider, radius=5000):
+def find_customers(rider, radius=5000):
     """
     Find all customers within a specific radius
     :param rider:
