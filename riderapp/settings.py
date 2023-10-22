@@ -50,8 +50,8 @@ INSTALLED_APPS = [
                      'dj_rest_auth.registration',
                      'rest_framework.authtoken',
                      'corsheaders',
-                     'drf_yasg'
-
+                     'drf_yasg',
+                      'channels',
                  ]
 
 SITE_ID = 1
@@ -135,6 +135,24 @@ SWAGGER_SETTINGS = {
 
 WSGI_APPLICATION = 'riderapp.wsgi.application'
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # Adjust as needed
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+ASGI_APPLICATION = "rides_mgmt.routing.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

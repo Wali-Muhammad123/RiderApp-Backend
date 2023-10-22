@@ -71,3 +71,4 @@ class UserRatingModel(models.Model):
     rider = models.ForeignKey(RiderUser, on_delete=models.PROTECT, related_name='rider_rating')
     rating = models.IntegerField(default=5)
     review = models.CharField(max_length=100, blank=True, null=True)
+
