@@ -52,7 +52,7 @@ INSTALLED_APPS = [
                      'rest_framework.authtoken',
                      'corsheaders',
                      'drf_yasg',
-                      'channels',
+                     'channels',
                  ]
 
 SITE_ID = 1
@@ -95,6 +95,7 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 }
+CORS_ALLOW_ALL_ORIGINS = True
 MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -104,7 +105,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'riderapp.urls'
@@ -211,4 +213,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # RIDES MANAGEMENT
 PRICE_PER_KM_RIDE = 10
 PRICE_PER_KM_PARCEL = 15
-
