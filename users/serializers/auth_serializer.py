@@ -40,13 +40,9 @@ class CustomRegisterSerializer(RegisterSerializer):
         }
 
     def validate_password1(self, password):
-        # print(password)
-        # decrypted_password = self.decrypt_password(password)
-        # return get_adapter().clean_password(decrypted_password)
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        # if self.decrypt_password(data['password1']) != self.decrypt_password(data['password2']):
         if data['password1'] != data['password2']:
             raise serializers.ValidationError("The two password fields didn't match.")
         return data
