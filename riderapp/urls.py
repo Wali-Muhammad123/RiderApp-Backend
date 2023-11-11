@@ -40,4 +40,5 @@ urlpatterns = [
     path('api/accounts/register', CustomRegisterView.as_view(), name='register'),
     path('api/accounts/', include('dj_rest_auth.urls')),
     path('api/users', include('users.urls')),
+    path('api/ride/', include('rides_mgmt.urls'))
 ]

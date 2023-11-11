@@ -6,15 +6,18 @@ from users.models import Rider, Customer
 
 # Create your models here.
 class RideObject(models.Model):
+    objects = models.Manager()
     TYPE = (
         ('ride', 'ride'),
         ('parcel', 'parcel')
     )
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    rider = models.ForeignKey(Rider, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    pickup_location = gis_models.PointField()
-    drop_off_location = gis_models.PointField()
-    pickup_time = models.DateTimeField()
-    drop_off_time = models.DateTimeField()
-    deal_price = models.IntegerField()
+    id = models.BigIntegerField(primary_key=True, auto_created=True)
+    ride_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    rider = models.ForeignKey(Rider, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    pickup_location = gis_models.PointField(null=True, blank=True)
+    drop_off_location = gis_models.PointField(null=True, blank=True)
+    pickup_time = models.DateTimeField(null=True, blank=True)
+    drop_off_time = models.DateTimeField(null=True, blank=True)
+    deal_price = models.IntegerField(null=True, blank=True)
+    ride_booked = models.BooleanField(default=False)

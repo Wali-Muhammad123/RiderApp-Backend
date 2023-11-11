@@ -38,8 +38,10 @@ INSTALLED_APPS = [
                      'django.contrib.sessions',
                      'django.contrib.messages',
                      'django.contrib.staticfiles',
+                     'django.contrib.gis'
                  ] + [
-                     'users'
+                     'users',
+                     'rides_mgmt',
                  ] + [
                      'rest_framework',
                      'dj_rest_auth',
@@ -211,5 +213,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # RIDES MANAGEMENT
-PRICE_PER_KM_RIDE = 10
+RIDE_PRICE_PER_KM = 10
 PRICE_PER_KM_PARCEL = 15
+
+
