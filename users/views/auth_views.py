@@ -2,7 +2,6 @@ from allauth.account import app_settings as allauth_account_settings
 from allauth.account.utils import complete_signup
 from dj_rest_auth.app_settings import api_settings
 from dj_rest_auth.registration.views import RegisterView
-from dj_rest_auth.serializers import LoginSerializer as DefaultLoginSerializer
 from dj_rest_auth.utils import jwt_encode
 from rest_framework import serializers
 
@@ -10,8 +9,7 @@ from users.serializers import CustomRegisterSerializer
 
 
 # Create your views here.
-class CustomLoginSerializer(DefaultLoginSerializer):
-    username = None
+
 
 
 class CustomRegisterView(RegisterView):

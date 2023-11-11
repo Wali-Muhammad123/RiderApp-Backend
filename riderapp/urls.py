@@ -19,13 +19,13 @@ from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
-from users.views import CustomRegisterView
+from users.views import *
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Tribaja API",
+        title="RideBuddy API",
         default_version='v1',
-        description="Tribaja API Documentation",
+        description="RideBuddy API Documentation",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="wali.muhammad@folium.ai"),
         license=(openapi.License(name="BSD License")),

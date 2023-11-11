@@ -12,14 +12,11 @@ class FindRiderSerializer(serializers.Serializer):
         return RiderCardSerializer(obj.rider).data
 
     def get_demographics(self, obj):
-        try:
-            distance = obj.pickup_location.distance(obj.rider.current_location).km
-            arrival_time = (distance / 40) * 60
-            return {
-                "distance": distance,
-                "arrival_time": arrival_time
-            }
-        except:
-            return None
+        distance = obj.pickup_location.distance(obj.rider.current_location)
+        arrival_time = (distance / 40) * 60
+        return {
+            "distance": distance,
+            "arrival_time": arrival_time
+        }
     def get_deal_price(self, obj):
         return obj.deal_price

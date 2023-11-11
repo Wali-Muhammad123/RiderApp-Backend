@@ -74,7 +74,7 @@ AUTHENTICATION_BACKENDS = (
 )
 REST_AUTH = {
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
-    # 'LOGIN_SERIALIZER': 'main.serializers.auth_serializers.CustomLoginSerializer',
+    'LOGIN_SERIALIZER': 'users.serializers.auth_serializer.CustomLoginSerializer',
     # 'PASSWORD_RESET_SERIALIZER': 'main.serializers.auth_serializers.CustomPasswordResetSerializer',
     'USE_JWT': True,
     'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserDetailsSerializer',

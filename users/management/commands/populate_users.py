@@ -15,23 +15,24 @@ class Command(BaseCommand):
         customer_users = []
         rider_users = []
         for i in tqdm(range(30)):
-            customers = RiderUser.objects.create(
-                email=f"test{i}@gmail.com", first_name=faker.first_name(),
-                last_name=faker.last_name(),
-                role="customer",
-                is_active=True
-            )
-            customers.set_password("test1234")
-            customer_users.append(customers)
-        for i in tqdm(range(31, 41)):
-            riders = RiderUser.objects.create(
+            customers = RiderUser.objects.create_user(
                 email=f"test{i}@gmail.com",
                 first_name=faker.first_name(),
                 last_name=faker.last_name(),
+                password="wali12345",
+                role="customer",
+                is_active=True
+            )
+            customer_users.append(customers)
+        for i in tqdm(range(31, 41)):
+            riders = RiderUser.objects.create_user(
+                email=f"test{i}@gmail.com",
+                first_name=faker.first_name(),
+                last_name=faker.last_name(),
+                password="wali12345",
                 role="rider",
                 is_active=True
             )
-            riders.set_password("test1234")
             rider_users.append(riders)
         self.stdout.write("Successfully created Users")
         customers = Customer.objects.all()
