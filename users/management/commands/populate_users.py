@@ -70,7 +70,6 @@ class Command(BaseCommand):
         # Creating ride objects for customers to choose from
         for i in range(1,11):
             RideObject.objects.create(
-                id=i,
                 rider=(random.choice(rider_users)).rider,
                 customer=customer_users[0].customer,
                 pickup_location=Point(-122.084, 37.4219983),
