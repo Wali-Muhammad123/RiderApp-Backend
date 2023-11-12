@@ -11,7 +11,7 @@ class RideObject(models.Model):
         ('ride', 'ride'),
         ('parcel', 'parcel')
     )
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     ride_id = models.UUIDField(default=uuid.uuid4, editable=False)
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE, null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
