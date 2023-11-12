@@ -1,5 +1,8 @@
 from dj_rest_auth.jwt_auth import JWTCookieAuthentication
 from rest_framework import viewsets
+from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from users.permissions import IsCustomerUser
 from ..pagination import RidesPagination
@@ -20,3 +23,13 @@ class ListRidersViewSet(viewsets.ModelViewSet):
         else:
             return RideObject.objects.none()
 
+    @action(detail=True, methods=['post'])
+    def book_ride(self, request, pk=None):
+        ride = self.get_object()
+        ride.ride_booked = True
+        ride.rider.status = 'on_ride'
+        ride.customer.status = 'on_ride'
+        ride.save()
+        ride.rider.save()
+        ride.customer.save()
+        return Response({"detail": "Ride Booked"}, status=status.HTTP_200_OK)
