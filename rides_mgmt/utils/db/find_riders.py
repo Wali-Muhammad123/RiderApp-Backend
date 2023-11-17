@@ -1,5 +1,6 @@
 from django.contrib.gis.db.models.functions import Distance
 
+from rides_mgmt.models import RideObject
 from users.models import Customer
 
 
@@ -10,7 +11,13 @@ def find_customers(rider, radius=5000):
     :param radius:
     :return: Customers within a specific radius
     """
-    nearby_customers = Customer.objects.annotate(
-        distance=Distance('current_location', rider.current_location)
-    ).filter(distance_lte=radius, status='available').order_by('distance')
-    return nearby_customers
+    nearby_rides = RideObject.objects.filter(
+        pickup_location__distance_lte=(
+            rider.current_location,
+            radius
+        ),
+        ride_booked=False
+    )
+    if not nearby_rides:
+        return None
+    return nearby_rides

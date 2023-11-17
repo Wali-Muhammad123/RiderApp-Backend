@@ -44,6 +44,7 @@ INSTALLED_APPS = [
                      'rides_mgmt',
                  ] + [
                      'rest_framework',
+                     'rest_framework_gis',
                      'dj_rest_auth',
                      'allauth',
                      'allauth.account',
@@ -215,5 +216,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # RIDES MANAGEMENT
 RIDE_PRICE_PER_KM = 10
 PRICE_PER_KM_PARCEL = 15
-
-
