@@ -1,68 +1,49 @@
-#!/usr/bin/env sh
-set -e
+#!/bin/bash
 
-if [ "$MODE" = "production" ]; then
-    echo "Running in production mode with SQL"
-    if [ a = 1 ]; then
-      echo "Cannot start application. Secrets not found"
-      exit 1
-    else
-      echo "Injecting secrets"
-      $( echo "$APP_ENV" | jq -r 'keys[] as $k | "export \($k)=\(.[$k])"' )
-      touch .env
-      echo "$APP_ENV" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' > .env
-    fi
-else
-      if [ "$MODE" = "dev" ]; then
-        if [ -f .env.docker.dev ]; then
-          cat .env.docker.dev > .env
-          export $(cat .env | xargs)
-        else
-          echo ".env.docker.dev file not found. Create .env.docker.ci file to continue"
-          exit 1
-        fi
-     elif [ "$MODE" = "test" ]; then
-        if [ -f .env.docker.ci ]; then
-          cat .env.docker.ci > .env
-          export $(cat .env | xargs)
-        else
-          echo ".env.docker.ci file not found. Create .env.docker.ci file to continue"
-          exit 1
-        fi
-      else
-         echo "Unknown mode"
-         exit 1
-     fi
+# Define variables
+REPO_DIR=$HOME/RiderApp-Backend
+GIT_REPO_URL=https://github.com/Wali-Muhammad123/RiderApp-Backend.git
+BRANCH=features-1
 
-fi
+# Logging
+echo "Starting deployment script."
 
-echo "Running database migration"
-(python manage.py makemigrations) && (python manage.py migrate)
-echo "Database migration completed"
-if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] && [ -n "$DJANGO_SUPERUSER_EMAIL" ]; then
-    echo "Checking if Django superuser exists"
+# Navigate to the repository directory
+cd $REPO_DIR
 
-    # Check if superuser already exists
-    EXISTS=$(echo "from django.contrib.auth import get_user_model; User = get_user_model(); print(User.objects.filter(email='$DJANGO_SUPERUSER_EMAIL').exists())" | python manage.py shell)
+# Fetch the latest code from the repository
+echo "Pulling latest code from $BRANCH branch of $GIT_REPO_URL."
+git pull origin $BRANCH
 
-    if [ "$EXISTS" = "False" ]; then
-        echo "Creating Django superuser"
-        python manage.py createsuperuser --noinput --first_name $DJANGO_SUPERUSER_USERNAME --last_name $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --role "admin"
-        echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(email='$DJANGO_SUPERUSER_EMAIL'); user.set_password('$DJANGO_SUPERUSER_PASSWORD'); user.save()" | python manage.py shell
-        echo "Django superuser created"
-    else
-        echo "Django superuser already exists. Skipping creation."
-    fi
-fi
-#echo "Running Population Scripts"
-#(python manage.py populate_onboarding) && (python manage.py simulate) && (python manage.py fix_dates) && (python manage.py employer_following)
-#echo "Population Scripts completed"
+# (Optional) If you are using a virtual environment for a Python application, for example
+# echo "Activating virtual environment."
+# source /path/to/your/virtualenv/bin/activate
 
-if [ -z "$MODE" ] || [ "$MODE" != "test" ] || [ "$MODE" = "production" ]; then
-  echo "Starting Nginx"
-  (gunicorn tribaja.wsgi:application  --bind 0.0.0.0:8000) & nginx -g "daemon off;"
-  echo "Stopped Nginx"
-else
-  echo "Executing command: $@"
-  exec "$@"
-fi
+# (Optional) Install dependencies
+# For a Node.js application
+# echo "Installing Node.js dependencies."
+# npm install
+
+# For a Python application
+# echo "Installing Python dependencies."
+pip install -r requirements.txt
+
+#(Optional) Run database migrations
+echo "Running database migrations."
+python3 manage.py migrate  # Django example
+
+# (Optional) Compile assets or run build scripts
+# echo "Building the application."
+# npm run build  # Node.js example
+
+# (Optional) Restart the web server to load new code
+# For example, if using systemd to manage a service
+# echo "Restarting the application service."
+# systemctl restart your-application-service
+python3 manage.py runserver
+
+# Logging
+echo "Deployment script executed successfully."
+
+# Exit the script
+exit 0
