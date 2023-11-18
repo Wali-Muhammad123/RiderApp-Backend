@@ -4,6 +4,7 @@
 REPO_DIR=$HOME/RiderApp-Backend
 GIT_REPO_URL=https://github.com/Wali-Muhammad123/RiderApp-Backend.git
 BRANCH=features-1
+PORT=8000
 
 # Logging
 echo "Starting deployment script."
@@ -32,6 +33,11 @@ pip install -r requirements.txt
 echo "Running database migrations."
 python3 manage.py migrate  # Django example
 
+echo "Checking if port $PORT is in use."
+if lsof -i:$PORT -t >/dev/null; then
+    echo "Port $PORT is in use. Attempting to kill the process."
+    sudo kill $(lsof -i:$PORT -t) || echo "Failed to kill process on port $PORT. May require manual intervention."
+fi
 # (Optional) Compile assets or run build scripts
 # echo "Building the application."
 # npm run build  # Node.js example
