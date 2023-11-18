@@ -18,7 +18,7 @@ class FindCustomersViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return find_customers(rider=self.request.user.rider)
         elif self.action == 'retrieve':
-            return RideObject.objects.filter(id=self.kwargs.get('pk'), rider=self.request.user.rider)
+            return RideObject.objects.filter(rider=self.request.user.rider)
         else:
             return RideObject.objects.none()
 

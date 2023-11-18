@@ -16,6 +16,7 @@ def find_customers(rider, radius=5000):
             rider.current_location,
             radius
         ),
+        pickup_location__isnull=False,  # Ensure pickup_location is not None
         ride_booked=False
     )
     if not nearby_rides:
