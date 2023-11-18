@@ -13,10 +13,7 @@ class FindCustomersViewSet(viewsets.ModelViewSet):
     permission_classes = [IsRiderUser]
 
     def get_queryset(self):
-        if self.action == 'list':
-            return find_customers(rider=self.request.user.rider)
-        elif self.action == 'retrieve':
-            return RideObject.objects.filter(rider=self.request.user.rider)
+        if self.action == "list":
+            return find_customers(self.request.user.rider)
         else:
-            return RideObject.objects.none()
-
+            return RideObject.objects.all()
