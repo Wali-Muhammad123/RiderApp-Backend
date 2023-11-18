@@ -11,6 +11,7 @@ def find_customers(rider, radius=5000):
     :param radius:
     :return: Customers within a specific radius
     """
+    print(rider.current_location)
     nearby_rides = RideObject.objects.filter(
         pickup_location__distance_lte=(
             rider.current_location,
