@@ -1,7 +1,5 @@
 from dj_rest_auth.jwt_auth import JWTCookieAuthentication
-
-from rest_framework import viewsets, status
-from rest_framework.response import Response
+from rest_framework import viewsets
 
 from users.permissions import IsRiderUser
 from ..models import RideObject
