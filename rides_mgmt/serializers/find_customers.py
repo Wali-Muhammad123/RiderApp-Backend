@@ -19,14 +19,16 @@ class DropOffPointSerializer(gis_serializers.GeoFeatureModelSerializer):
 
 
 class FindCustomerCardSerializer(serializers.ModelSerializer):
-    pickup_location = PickUpPointSerializer()
-    drop_off_location = DropOffPointSerializer()
+    # pickup_location = PickUpPointSerializer()
+    # drop_off_location = DropOffPointSerializer()
+    pickup_location = serializers.SerializerMethodField(read_only=True)
+    drop_off_location = serializers.SerializerMethodField(read_only=True)
     customer = serializers.SerializerMethodField(read_only=True)
     demographics = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = RideObject
-        fields = ('pickup_location', 'drop_off_location', 'deal_price', 'id', 'ride_id', 'customer','demographics')
+        fields = ('pickup_location', 'drop_off_location', 'deal_price', 'id', 'ride_id', 'customer', 'demographics')
 
     def get_customer(self, obj):
         return {
@@ -47,3 +49,15 @@ class FindCustomerCardSerializer(serializers.ModelSerializer):
         except Exception as e:
             # Handle potential errors (e.g., invalid location data)
             return {'error': str(e)}
+
+    def get_pickup_location(self, obj):
+        return {
+            'type': 'Pickup Point',
+            'coordinates': [obj.pickup_location.x, obj.pickup_location.y]
+        }
+
+    def get_drop_off_location(self, obj):
+        return {
+            'type': 'Drop Off Point',
+            'coordinates': [obj.drop_off_location.x, obj.drop_off_location.y]
+        }
