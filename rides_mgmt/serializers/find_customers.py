@@ -61,3 +61,4 @@ class FindCustomerCardSerializer(serializers.ModelSerializer):
             'type': 'Drop Off Point',
             'coordinates': [obj.drop_off_location.x, obj.drop_off_location.y]
         }
+
