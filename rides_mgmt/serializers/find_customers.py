@@ -39,7 +39,7 @@ class FindCustomerCardSerializer(serializers.ModelSerializer):
         try:
             # Ensure both locations are available
             if obj.pickup_location and obj.drop_off_location:
-                distance = obj.pickup_location.distance(obj.drop_off_location).km
+                distance = obj.pickup_location.distance(obj.drop_off_location)
                 time = distance / 40  # Assuming a constant speed of 40 km/h
                 return {'distance': distance, 'time': time}
             else:
