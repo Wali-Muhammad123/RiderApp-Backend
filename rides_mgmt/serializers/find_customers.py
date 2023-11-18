@@ -41,7 +41,7 @@ class FindCustomerCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RideObject
-        fields = ('pickup_location', 'drop_off_location', 'deal_price', 'id', 'ride_id', 'customer')
+        fields = ('pickup_location', 'drop_off_location', 'deal_price', 'id', 'ride_id', 'customer','demographics')
 
     def get_customer(self, obj):
         return {
