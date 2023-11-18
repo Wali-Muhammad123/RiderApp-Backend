@@ -46,7 +46,7 @@ fi
 # For example, if using systemd to manage a service
 # echo "Restarting the application service."
 # systemctl restart your-application-service
-python3 manage.py runserver
+python3 manage.py runserver &
 
 # Logging
 echo "Deployment script executed successfully."
