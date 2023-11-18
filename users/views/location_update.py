@@ -16,6 +16,7 @@ def update_rider_location_status(request):
     rider = request.user.rider
     rider.location = Point(request.data.get('lon'), request.data.get('lat'))
     rider.status = 'available'
+    print(rider.location)
     rider.save()
     return Response(status=status.HTTP_200_OK)
 
