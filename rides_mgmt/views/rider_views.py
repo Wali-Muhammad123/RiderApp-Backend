@@ -17,3 +17,9 @@ class FindCustomersViewSet(viewsets.ModelViewSet):
             return find_customers(self.request.user.rider)
         else:
             return RideObject.objects.all()
+
+    def update(self, request, partial=True, *args, **kwargs):
+        instance = self.get_object()
+        instance.rider = request.user.rider
+        instance.save()
+        return super().update(request, *args, **kwargs)
