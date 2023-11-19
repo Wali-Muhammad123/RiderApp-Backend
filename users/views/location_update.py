@@ -43,3 +43,4 @@ def update_customer_location_status(request):
     return Response(data={
         "ride_id": create_ride.id
     }, status=status.HTTP_200_OK)
+
