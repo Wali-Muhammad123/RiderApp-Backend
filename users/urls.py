@@ -12,3 +12,4 @@ urlpatterns = [
     path('/update/availability/customer', update_customer_location_status, name='update_talent_profile'),
     path('/rider/bank_details', get_rider_bank, name='get_rider_bank'),
 ]
+
