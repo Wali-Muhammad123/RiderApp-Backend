@@ -17,7 +17,7 @@ def get_rider_bank(request):
         return Response({"message": "rider_id is required"}, status=status.HTTP_400_BAD_REQUEST)
     try:
         rider = Rider.objects.get(id=rider_id)
-        if not rider.bank_account:
+        if not rider.bank_details:
             return Response({"message": "Rider has no bank account"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"bank_account": rider.bank_details}, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
